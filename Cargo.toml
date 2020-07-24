@@ -1,6 +1,6 @@
 [package]
 name = "niko-cli"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Vengarioth | Andreas Fischer <opensource@deviru.de>"]
 edition = "2018"
 license = "MIT"
@@ -12,4 +12,21 @@ keywords = ["game", "engine", "framework", "gamedev"]
 categories = ["game-engines"]
 readme = "readme.md"
 
+[[bin]]
+name = "niko"
+path = "./src/main.rs"
+
 [dependencies]
+thiserror = "1.0"
+anyhow = "1.0"
+tokio = { version = "0.2", features = ["full"] }
+structopt = "0.3"
+serde = "1.0"
+serde_derive = "1.0"
+tinytemplate = "1.1"
+git2 = "0.13"
+hyper = "0.13"
+hyper-staticfile = "0.5"
+http = "0.2"
+futures-util = "0.3"
+webbrowser = "0.5"

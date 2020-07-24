@@ -1,0 +1,4 @@
+import('./pkg/{name}.js')
+.then(module => module.default())
+.then(module => module.main())
+.catch(console.error);
