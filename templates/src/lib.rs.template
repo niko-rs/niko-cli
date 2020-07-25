@@ -1,6 +1,20 @@
 use wasm_bindgen::prelude::*;
+use niko::{Context, Game, Error, clear};
+
+struct MyGame;
+
+impl Game for MyGame {
+    fn update(&mut self, context: &mut Context) -> Result<(), Error> {
+        Ok(())
+    }
+
+    fn draw(&mut self, context: &mut Context) -> Result<(), Error> {
+        clear(context, 0.392, 0.584, 0.929, 1.0);
+        Ok(())
+    }
+}
 
 #[wasm_bindgen]
 pub fn main() {
-    niko::start().unwrap();
+    niko::run(Box::new(MyGame)).unwrap();
 }
