@@ -1,9 +1,10 @@
 use std::process::Command;
+use crate::Error;
 
-pub fn run_wasm_pack() {
+pub fn run_wasm_pack() -> Result<(), Error> {
     let mut child = Command::new("wasm-pack")
         .args(&["build", "--target", "web"])
-        .spawn()
-        .expect("could not run wasm-pack");
-    child.wait().expect("could not wait on child output");
+        .spawn()?;
+    child.wait()?;
+    Ok(())
 }

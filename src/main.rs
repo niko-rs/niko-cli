@@ -1,8 +1,10 @@
 mod command;
+mod error;
 mod projects;
 mod wasm_pack;
 mod server;
 
+use error::*;
 use command::Command;
 
 #[tokio::main]
@@ -30,7 +32,7 @@ pub async fn main() {
             };
 
             // creates a new project
-            projects::generate_project(path, name, author);
+            projects::generate_project(path, name, author).expect("could not create project");
 
         },
         Command::Init { author, } => {
@@ -54,13 +56,13 @@ pub async fn main() {
                 panic!("name was not inferred from current location");
             };
 
-            projects::generate_project(path, name, author);
+            projects::generate_project(path, name, author).expect("could not create project");
 
         },
         Command::Watch => {
             // watches for changes and recompiles
 
-            wasm_pack::run_wasm_pack();
+            wasm_pack::run_wasm_pack().expect("wasm-pack failed");
             server::run_server().await;
         },
         Command::Bundle => {
