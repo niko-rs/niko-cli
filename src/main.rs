@@ -3,6 +3,7 @@ mod error;
 mod projects;
 mod wasm_pack;
 mod server;
+mod watcher;
 
 use error::*;
 use command::Command;
@@ -59,10 +60,25 @@ pub async fn main() {
             projects::generate_project(path, name, author).expect("could not create project");
 
         },
-        Command::Watch => {
+        Command::Watch { path, debounce } => {
             // watches for changes and recompiles
 
+            let path = if let Some(path) = path {
+                path
+            } else if let Some(path) = std::env::current_dir().ok() {
+                path
+            } else {
+                panic!("path could not be inferred");
+            };
+
+            let debounce = if let Some(debounce) = debounce {
+                debounce
+            } else {
+                100
+            };
+
             wasm_pack::run_wasm_pack().expect("wasm-pack failed");
+            let watcher = watcher::create_watcher(&path, debounce).expect("could not initialize watcher");
             server::run_server().await;
         },
         Command::Bundle => {

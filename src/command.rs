@@ -21,7 +21,13 @@ pub enum Command {
         author: Option<String>,
     },
     #[structopt(about = "Runs the development server and opens the project in the system's configured browser")]
-    Watch,
+    Watch {
+        #[structopt(name = "PATH", short = "p", long = "path", help = "the path of the project (a directory containing a Cargo.toml, defaults to current path)")]
+        path: Option<PathBuf>,
+
+        #[structopt(name = "DEBOUNCE", short = "d", long = "debounce", help = "how long before the project gets recompiled in milliseconds (defaults to 100")]
+        debounce: Option<u64>,
+    },
     #[structopt(about = "Bundles the project as a release that you can upload to itch.io")]
     Bundle,
 }
