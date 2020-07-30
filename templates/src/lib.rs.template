@@ -4,6 +4,10 @@ use niko::*;
 struct MyGame;
 
 impl Game for MyGame {
+    fn initialize(&mut self, context: &mut Context) -> Result<(), Error> {
+        Ok(())
+    }
+
     fn update(&mut self, context: &mut Context) -> Result<(), Error> {
         Ok(())
     }
