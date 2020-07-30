@@ -1,5 +1,5 @@
 use wasm_bindgen::prelude::*;
-use niko::{Context, Game, Error, clear};
+use niko::*;
 
 struct MyGame;
 
@@ -9,7 +9,7 @@ impl Game for MyGame {
     }
 
     fn draw(&mut self, context: &mut Context) -> Result<(), Error> {
-        clear(context, 0.392, 0.584, 0.929, 1.0);
+        clear(context, Color::rgb(100, 149, 237));
         Ok(())
     }
 }
