@@ -605,7 +605,7 @@ dependencies = [
 
 [[package]]
 name = "niko-cli"
-version = "0.1.5"
+version = "0.1.6"
 dependencies = [
  "anyhow",
  "futures-util",
