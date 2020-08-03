@@ -12,6 +12,7 @@ async fn handle_request<B>(req: Request<B>, static_: Static) -> Result<Response<
         let res = ResponseBuilder::new()
             .status(StatusCode::MOVED_PERMANENTLY)
             .header(header::LOCATION, "/index.html")
+            .header(header::CACHE_CONTROL, "no-store")
             .body(Body::empty())
             .expect("unable to build response");
         Ok(res)
@@ -21,7 +22,9 @@ async fn handle_request<B>(req: Request<B>, static_: Static) -> Result<Response<
 }
 
 pub async fn run_server() {
-    let static_ = Static::new(Path::new("./"));
+    let mut static_ = Static::new(Path::new("./"));
+
+    static_.cache_headers(Some(0));
 
     let make_service = make_service_fn(|_| {
         let static_ = static_.clone();
